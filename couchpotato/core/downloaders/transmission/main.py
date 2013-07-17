@@ -49,7 +49,7 @@ class Transmission(Downloader):
 
         if self.conf('directory'):
             if os.path.isdir(self.conf('directory')):
-                params['download-dir'] = self.conf('directory')
+                params['download-dir'] = self.convertFolder(folder_path, to_local = False)
             else:
                 log.error('Download directory from Transmission settings: %s doesn\'t exist', self.conf('directory'))
 
@@ -122,7 +122,7 @@ class Transmission(Downloader):
                 'original_status': item['status'],
                 'seed_ratio': item['uploadRatio'],
                 'timeleft': str(timedelta(seconds = item['eta'])),
-                'folder': os.path.join(item['downloadDir'], item['name']),
+                'folder': self.convertFolder(os.path.join(item['downloadDir'], item['name'])),
             })
 
         return statuses

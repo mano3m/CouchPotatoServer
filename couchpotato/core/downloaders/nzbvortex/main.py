@@ -57,7 +57,7 @@ class NZBVortex(Downloader):
                 'status': status,
                 'original_status': item['state'],
                 'timeleft':-1,
-                'folder': item['destinationPath'],
+                'folder': self.convertFolder(item['destinationPath']),
             })
 
         return statuses
