@@ -33,7 +33,7 @@ similar to the C interface provided by UnRAR. There is also a
 higher level interface which makes some common operations easier.
 """
 
-__version__ = '0.99.3'
+__version__ = '0.99.6'
 
 try:
     WindowsError
@@ -75,8 +75,6 @@ class RarInfo(object):
         self.datetime = data['datetime']
         self.comment = data['comment']
 
-
-
     def __str__(self):
         try :
             arcName = self.rarfile.archiveName
@@ -86,7 +84,7 @@ class RarInfo(object):
 
 class RarFile(RarFileImplementation):
 
-    def __init__(self, archiveName, password=None, custom_path = None):
+    def __init__(self, archiveName, password = None, custom_path = None):
         """Instantiate the archive.
 
         archiveName is the name of the RAR file.
@@ -126,7 +124,7 @@ class RarFile(RarFileImplementation):
         """Return a list of RarInfos, descripting the contents of the archive."""
         return list(self.infoiter())
 
-    def read_files(self, condition='*'):
+    def read_files(self, condition = '*'):
         """Read specific files from archive into memory.
         If "condition" is a list of numbers, then return files which have those positions in infolist.
         If "condition" is a string, then it is treated as a wildcard for names of files to extract.
@@ -140,7 +138,7 @@ class RarFile(RarFileImplementation):
         return RarFileImplementation.read_files(self, checker)
 
 
-    def extract(self,  condition='*', path='.', withSubpath=True, overwrite=True):
+    def extract(self, condition = '*', path = '.', withSubpath = True, overwrite = True):
         """Extract specific files from archive to disk.
 
         If "condition" is a list of numbers, then extract files which have those positions in infolist.
@@ -158,6 +156,11 @@ class RarFile(RarFileImplementation):
         Returns list of RarInfos for extracted files."""
         checker = condition2checker(condition)
         return RarFileImplementation.extract(self, checker, path, withSubpath, overwrite)
+
+    def get_volume(self):
+        """Determine which volume is it in a multi-volume archive. Returns None if it's not a
+        multi-volume archive, 0-based volume number otherwise."""
+        return RarFileImplementation.get_volume(self)
 
 def condition2checker(condition):
     """Converts different condition types to callback"""
