@@ -96,8 +96,15 @@ class Base(NZBProvider, RSS):
                     password = re.search('(?:' + self.passwords_regex + ')(?: *)(?:\:|\=)(?: *)(.*?)\<br\>|\n|$', description, flags = re.I).group(1)
                     if password:
                         name += ' {{%s}}' % password.strip()
+
+                    # Get the spotweb detail url
+                    detail_url = '%s%s' % (cleanHost(host['host']), '?page=getspot&messageid=%s' % nzb_id)
                 except:
                     log.debug('Error getting details of "%s": %s', (name, traceback.format_exc()))
+
+            # Dutplanet exception
+            if 'dutplanet' in host['host'].lower():
+                detail_url = self.getTextElement(nzb, 'comments')
 
             results.append({
                 'id': nzb_id,
