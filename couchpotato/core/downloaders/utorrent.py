@@ -186,6 +186,10 @@ class uTorrent(DownloaderBase):
                 #Get files of the torrent
                 torrent_files = []
                 try:
+                    # Windows hack to keep guessit from crashing
+                    if len(torrent[26]) == 2 and ':' in torrent[26]:
+                        torrent[26] = torrent[26] + '\\'
+
                     torrent_files = json.loads(self.utorrent_api.get_files(torrent[0]))
                     torrent_files = [sp(os.path.join(torrent[26], torrent_file[0])) for torrent_file in torrent_files['files'][1]]
                 except:
