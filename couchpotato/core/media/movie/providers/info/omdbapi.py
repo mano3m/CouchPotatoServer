@@ -44,7 +44,7 @@ class OMDBAPI(MovieProvider):
 
         if cached:
             result = self.parseMovie(cached)
-            if result.get('titles') and len(result.get('titles')) > 0:
+            if result.get('titles') and len(result.get('titles')) > 0 and result.get('year'):
                 log.info('Found: %s', result['titles'][0] + ' (' + str(result.get('year')) + ')')
                 return [result]
 
@@ -62,7 +62,7 @@ class OMDBAPI(MovieProvider):
 
         if cached:
             result = self.parseMovie(cached)
-            if result.get('titles') and len(result.get('titles')) > 0:
+            if result.get('titles') and len(result.get('titles')) > 0 and result.get('year'):
                 log.info('Found: %s', result['titles'][0] + ' (' + str(result['year']) + ')')
                 return result
 
