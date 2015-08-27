@@ -240,7 +240,7 @@ class Renamer(Plugin):
             log.error('Please fill in the filename option under renamer settings. Forcing it on <original>.<ext> to keep the same name as source file.')
             file_name = '<original>.<ext>'
 
-        cd_keys = ['<cd>','<cd_nr>', '<original>']
+        cd_keys = ['<cd>', '<cd_nr>', '<original>']
         if not any(x in folder_name for x in cd_keys) and not any(x in file_name for x in cd_keys):
             log.error('Missing `cd` or `cd_nr` in the renamer. This will cause multi-file releases of being renamed to the same file. '
                       'Please add it in the renamer settings. Force adding it for now.')
@@ -1353,7 +1353,7 @@ config = [{
                     'name': 'replace_doubles',
                     'type': 'bool',
                     'label': 'Clean Name',
-                    'description': ('Attempt to clean up double separaters due to missing data for fields.','Sometimes this eliminates wanted white space (see <a href="https://github.com/RuudBurger/CouchPotatoServer/issues/2782">#2782</a>).'),
+                    'description': ('Attempt to clean up double separaters due to missing data for fields.', 'Sometimes this eliminates wanted white space (see <a href="https://github.com/RuudBurger/CouchPotatoServer/issues/2782">#2782</a>).'),
                     'default': True
                 },
                 {
