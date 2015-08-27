@@ -557,6 +557,8 @@ class Release(Plugin):
                 pass
             except (ValueError, EOFError):
                 fireEvent('database.delete_corrupted', r.get('_id'), traceback_error = traceback.format_exc(0))
+            except RecordNotFound:
+                log.debug('Record not found, skipping: %s', r['_id'])
 
         releases = sorted(releases, key = lambda k: k.get('info', {}).get('score', 0), reverse = True)
 

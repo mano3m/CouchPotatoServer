@@ -3,7 +3,7 @@ import threading
 import time
 import traceback
 import uuid
-from CodernityDB.database import RecordDeleted
+from CodernityDB.database import RecordDeleted, RecordNotFound
 
 from couchpotato import get_db
 from couchpotato.api import addApiView, addNonBlockApiView
@@ -281,6 +281,8 @@ class CoreNotifier(Notification):
                         messages.append(doc)
                 except RecordDeleted:
                     pass
+                except RecordNotFound:
+                    log.debug('Record not found, skipping: %s', n['_id'])
 
         return {
             'success': True,
