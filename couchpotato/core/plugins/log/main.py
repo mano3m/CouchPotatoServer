@@ -80,6 +80,7 @@ class Logging(Plugin):
         if current_path:
             f = open(current_path, 'r')
             log_content = f.read()
+            f.close()
         logs = self.toList(log_content)
 
         return {
@@ -105,6 +106,7 @@ class Logging(Plugin):
 
             f = open(path, 'r')
             log_content = toUnicode(f.read())
+            f.close()
             raw_lines = self.toList(log_content)
             raw_lines.reverse()
 
